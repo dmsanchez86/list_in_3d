@@ -5,6 +5,7 @@ $secondary: #e53935
 
 $purple_dark: #4a148c 
 $purple_ligth: #7b1fa2 
+$purple_hover: #7306A1 
 
 *
 	border: 0
@@ -17,18 +18,21 @@ main
 	width: 100%
 	height: 100%
 
+body
+	@include gradient(radial, (center, #42a5f5, #64b5f6, #90caf9, #bbdefb))
+
 main
 	@include flex(flex)
 	@include align-items(center)
 	@include justify-content(center)
 	@include perspective(1000px)
 	@include perspective-origin(center center)
-	@include gradient(radial, (center, #42a5f5, #64b5f6, #90caf9, #bbdefb))
 
 	ul
 		max-width: 400px
 		list-style-type: none
 		@include transform(rotatey(38deg) translatez(-30px))
+		@include transition(transform .25s ease)
 		@include transform-origin(left center)
 		@include perspective(1000px)
 		@include perspective-origin(0% 0%)
@@ -59,14 +63,36 @@ main
 						-webkit-animation-name: display_2
 						animation-name: display_2
 
+			&:hover
+				@include transform(rotatey(0deg) translatez(-30px))
+
 			li
 				&.header
 					opacity: 1!important
 					@include transform_important(rotatex(0))
 					cursor: pointer
 
+				&:hover
+
+					&:not(.header)
+						cursor: pointer
+						background: $purple_hover
+						border-color: $purple_hover
+
+
 		&.left
+
+			&:hover
+				@include transform(rotatey(0deg) translatez(-30px))
+
 			li
+				&:hover
+
+					&:not(.header)
+						cursor: pointer
+						background: #DA211D
+						border-color: #DA211D
+
 				&.header
 					-webkit-animation: display_1 .51s 1s 1 cubic-bezier(0.07,-0.52, 1, 1.93) forwards
 					animation: display_1 .51s 1s 1 cubic-bezier(0.07,-0.52, 1, 1.93) forwards
@@ -94,13 +120,41 @@ main
 			background: $secondary
 			border-bottom: thin solid $primary
 			opacity: 0
+			position: relative
 			@include transform-origin(top center)
+			@include transition(all .5s ease)
+
+			&:after,
+			&:before
+				content: ''
+				position: absolute
+				height: 50%
+				width: 0
+				background: rgba(255,255,255, .15)
+				@include transition(all .3s ease)
+
+			&:after
+				top: 0
+				left: 0
+
+			&:before
+				bottom: 0
+				right: 0
+
+			&:hover
+				&:not(.header)
+					&:after,
+					&:before
+						width: 100%
 
 			&.header
 				font-weight: bold
 				min-height: 3rem
 				line-height: 2
 				font-size: 2rem
+
+@import 'back_button'
+@import 'queries'
 	
 @-webkit-keyframes display_1
 	0%

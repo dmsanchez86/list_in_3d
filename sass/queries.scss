@@ -1,0 +1,20 @@
+@media(max-width: 768px){
+	main{
+		display: block;
+
+		ul{
+			margin: 1rem auto;
+			display: block;
+			max-width: 300px;
+			transform: rotateY(15deg) translateZ(-30px);
+
+			&.rigth{
+				transform: rotateY(15deg) translateZ(-30px);
+			}
+
+			li{
+				padding: .8rem 1rem;
+			}
+		}
+	}
+}
